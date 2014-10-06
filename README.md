@@ -20,7 +20,7 @@ bundle install
 ```
 
 After you create an ubuntu 14.04 droplet on
-(digitalocean)[www.digitalocean.com] copy its IP address and you're ready to
+[digitalocean](www.digitalocean.com) copy its IP address and you're ready to
 go:
 
 ```bash:
@@ -28,13 +28,16 @@ SERVER_ADDRESS=your.ip.address cap bootstrap
 ```
 
 After a couple of minutes openvpn access server will be installed and
-running, just visit `https://your.ip.address` and follow the on screen
-instructions.
+running, just visit `https://your.ip.address`, login as the `openvpn` user
+and follow the onscreen instructions.
+
+See also the [digitalocean tutorial on openvpn server](https://www.digitalocean.com/community/tutorials/how-to-install-openvpn-access-server-on-ubuntu-12-04).
 
 Notes
 =====
 
-This package also installs (minimum security)[https://github.com/Enucatl/minimum_security] features on your server. Most
-notably only allowing public key ssh authentication, and disabling root
+This package also installs [minimum
+security](https://github.com/Enucatl/minimum_security) features on your
+server. It only allows public key ssh authentication, and disables root
 login altogether. A `deploy` user is created with `sudo` capabilities
 though.
