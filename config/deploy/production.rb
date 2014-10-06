@@ -4,7 +4,7 @@
 # is considered to be the first unless any hosts have the primary
 # property set.  Don't declare `role :all`, it's a meta role.
 
-server_address = "178.62.209.67"
+server_address = ENV["SERVER_ADDRESS"] ||= "178.62.209.67"
 role :non_root,  "deploy@#{server_address}"
 role :root,  "root@#{server_address}"
 
