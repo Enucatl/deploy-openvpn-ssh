@@ -8,7 +8,7 @@ namespace :'puppet-bootstrap' do
 
   desc "install the ubuntu packages"
   task :'install-packages' do
-    packages = %w(puppet ruby-dev make)
+    packages = %w(git puppet ruby-dev make)
     on roles(:root) do
       packages.each do |p|
         execute "dpkg -s #{p} &> /dev/null; if [ $? -ne 0 ]; then DEBIAN_FRONTEND=noninteractive apt-get -y install #{p}; fi"
