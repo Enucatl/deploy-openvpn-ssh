@@ -19,7 +19,7 @@ namespace :'puppet-bootstrap' do
   desc "install puppet librarian"
   task :'install-librarian' => :'install-packages' do
     on roles(:root) do
-      execute "if [ -z $(which librarian-puppet) ]; then gem install librarian-puppet; fi"
+      execute "if [ -z $(which librarian-puppet) ]; then gem install librarian-puppet --no-ri --no-rdoc; fi"
     end
   end
 
