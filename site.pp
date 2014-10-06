@@ -1,4 +1,5 @@
 class { 'minimum_security':
+  user => 'deploy',
   password => '$1$D5KK5H7a$OCs4OnweVdEe/ll2ZevPd1',
   ssh_key_location => 'https://github.com/enucatl.keys',
 }
