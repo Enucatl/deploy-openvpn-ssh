@@ -6,8 +6,15 @@ end
 
 namespace :'puppet-bootstrap' do
 
+  desc "update the ubuntu packages"
+  task :'update-packages' do
+    on roles(:root) do
+        execute "apt-get update; DEBIAN_FRONTEND=noninteractive apt-get -y upgrade"
+    end
+  end
+
   desc "install the ubuntu packages"
-  task :'install-packages' do
+  task :'install-packages' => :"update-packages" do
     packages = %w(git puppet ruby-dev make)
     on roles(:root) do
       packages.each do |p|
@@ -16,15 +23,15 @@ namespace :'puppet-bootstrap' do
     end
   end
 
-  desc "install puppet librarian"
-  task :'install-librarian' => :'install-packages' do
+  desc "install r10k"
+  task :'install-r10k' => :'install-packages' do
     on roles(:root) do
-      execute "if [ -z $(which librarian-puppet) ]; then gem install librarian-puppet --no-ri --no-rdoc; fi"
+      execute "if [ -z $(which r10k) ]; then gem install r10k --no-ri --no-rdoc; fi"
     end
   end
 
   desc "Package and upload the configs"
-  task :'upload-config' => ["openvpn.tar.gz", :'install-librarian'] do |t|
+  task :'upload-config' => ["openvpn.tar.gz", :'install-r10k'] do |t|
     tarball = t.prerequisites.first
     on roles(:root) do
       execute :mkdir, '-p', tmp_dir
@@ -36,19 +43,19 @@ namespace :'puppet-bootstrap' do
   end
 
   desc "run puppet librarian"
-  task :'puppet-librarian' => :"upload-config" do
+  task :'puppet-r10k' => :"upload-config" do
     on roles(:root) do
       within tmp_dir do
-        execute :"librarian-puppet", "install"
+        execute :"r10k", "puppetfile install"
       end
     end
   end
 
   desc "puppet apply"
-  task :'puppet-apply' => :"puppet-librarian" do
+  task :'puppet-apply' => :"puppet-r10k" do
     on roles(:root) do
       within tmp_dir do
-        execute :puppet, "apply", "--modulepath=./modules", "site.pp"
+        execute :puppet, "apply",  "--modulepath=./modules", "site.pp"
       end
     end
   end
