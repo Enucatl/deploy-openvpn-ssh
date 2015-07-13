@@ -3,6 +3,8 @@
 
 forge "https://forgeapi.puppetlabs.com"
 
+mod "puppetlabs/concat"
+mod "puppetlabs/stdlib"
 mod "puppetlabs/apt"
 mod "maestrodev/wget"
 mod "attachmentgenie/ufw"

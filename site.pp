@@ -5,6 +5,6 @@ class { 'minimum_security':
 }
 
 class {'openvpn_as':
-  openvpn_location => 'http://swupdate.openvpn.org/as/openvpn-as-2.0.10-Ubuntu14.amd_64.deb',
+  openvpn_location => 'http://swupdate.openvpn.org/as/openvpn-as-2.0.17-Ubuntu14.amd_64.deb',
   password => '$1$D5KK5H7a$OCs4OnweVdEe/ll2ZevPd1',
 }
